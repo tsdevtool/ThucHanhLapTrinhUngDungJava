@@ -3,21 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Form Sinh Viên</title>
+   <link rel="stylesheet" type="text/css" th:href="@{/css/site.css}">
+    <style>
+        /* CSS tùy chỉnh cho thẻ h1 */
+        .text-center-blue {
+            text-align: center;
+            color: #007bff; /* Màu xanh Bootstrap */
+            position: relative;
+            display: inline-block;
+        }
+        .text-center-blue::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background-color: #007bff; /* Màu xanh Bootstrap */
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+    </style>
 </head>
 <body>
     <section layout:fragment="content">
-        <h1>Form Sinh Viên</h1>
+        <h1 class="text-center-blue">Form Sinh Viên</h1>
         <form th:action="@{/sinhvien}" th:object="${sinhVien}" method="post" class="needs-validation" novalidate>
-            <p>Tên: <input type="text" th:field="*{ten}"></p>
-            <p th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color:red;"></p>
+            <div class="mb-3">
+                <p class="input-group-text">Tên: <input class="form-control" type="text" th:field="*{ten}"></p>
+                <p th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color:red;"></p>
+            </div>
+            <div class="mb-3">
+                <p class="input-group-text">Tuổi: <input class="form-control" type="text" th:field="*{tuoi}"></p>
+                <p th:if="${#fields.hasErrors('tuoi')}" th:errors="*{tuoi}" style="color:red;"></p>
+            </div>
 
-            <p>Tuổi: <input type="text" th:field="*{tuoi}"></p>
-            <p th:if="${#fields.hasErrors('tuoi')}" th:errors="*{tuoi}" style="color:red;"></p>
+            <div class="mb-3">
+                <p class="input-group-text">Khoa: <input class="form-control" type="text" th:field="*{khoa}"></p>
+                <p th:if="${#fields.hasErrors('khoa')}" th:errors="*{khoa}" style="color:red;"></p>
+            </div>
 
-            <p>Khoa: <input type="text" th:field="*{khoa}"></p>
-            <p th:if="${#fields.hasErrors('khoa')}" th:errors="*{khoa}" style="color:red;"></p>
-
-            <p><button type="submit">Submit</button></p>
+            <p><button class="btn btn-outline-primary" type="submit">Submit</button></p>
         </form>
     </section>
 </body>
