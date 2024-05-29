@@ -37,10 +37,11 @@
                 <th>Tuổi</th>
                 <th>Khoa</th>
             </tr>
-            <tr>
-                <th th:text="${sinhVien.ten}">Tên</th>
-                <th th:text="${sinhVien.tuoi}">Tuổi</th>
-                <th th:text="${sinhVien.khoa}">Khoa</th>
+            <tr th:each="sinhVien :${sinhViens}">
+                <td th:text="${sinhVien.ten}">Tên</td>
+                <td th:text="${sinhVien.tuoi}">Tuổi</td>
+                <td th:text="${sinhVien.khoa}">Khoa</td>
+                <td><img th:src="@{${sinhVien.imgUrl}}" alt="Ảnh sinh viên"></td>
             </tr>
         </table>
     </section>
