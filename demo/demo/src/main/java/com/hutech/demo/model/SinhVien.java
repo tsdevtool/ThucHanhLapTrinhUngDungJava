@@ -4,8 +4,16 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.web.multipart.MultipartFile;
 
 public class SinhVien {
+    public SinhVien(String ten, int tuoi, String khoa, String imgUrl){
+        this.ten = ten;
+        this.tuoi = tuoi;
+        this.khoa = khoa;
+        this.imgUrl = imgUrl;
+    }
+    public SinhVien(){}
     @NotBlank(message = "Tên là bắt buộc")
     private String ten;
 
@@ -40,5 +48,16 @@ public class SinhVien {
 
     public void setKhoa(@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Khoa phải là chữ") String khoa) {
         this.khoa = khoa;
+    }
+
+    private String imgUrl;
+
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
