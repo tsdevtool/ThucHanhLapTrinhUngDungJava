@@ -23,7 +23,7 @@
             <th>Description</th>
             <th>Category Name</th>
             <th>Actions</th>
-            <th>Add To Cart</th>
+<!--            <th>Add To Cart</th>-->
         </tr>
         </thead>
         <tbody>
@@ -39,16 +39,23 @@ btn-success btn-sm">Edit</a>
                 <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn
 btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
-            <td>
-                <form th:action="@{/cart/add}" method="post">
-                    <input type="number" name="quantity" min="1" value="1"
-                           class="form-control d-inline-block" style="width: 70px;">
-                    <input type="hidden" th:value="${product.id}"
-                           name="productId"/>
-                    <button type="submit" class="btn btn-warning btn-sm">Add to
-                        Cart</button>
-                </form>
-            </td>
+<!--            <td>-->
+<!--&lt;!&ndash;                <form th:action="@{/cart/add}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="number" name="quantity" min="1" value="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                           class="form-control d-inline-block" style="width: 70px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="hidden" th:value="${product.id}"&ndash;&gt;-->
+<!--&lt;!&ndash;                           name="productId"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="submit" class="btn btn-warning btn-sm">Add to&ndash;&gt;-->
+<!--&lt;!&ndash;                        Cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--                <form th:action="@{/cart/add}" method="post">-->
+<!--                    <input type="number" name="quantity" min="1" value="1" class="form-->
+<!--control d-inline-block" style="width: 70px;">-->
+<!--                    <input type="hidden" th:value="${product.id}" name="productId"/>-->
+<!--                    <button type="submit" class="btn btn-warning btn-sm">Add to-->
+<!--                        Cart</button>-->
+<!--                </form>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
