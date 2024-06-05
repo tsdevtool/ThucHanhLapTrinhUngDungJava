@@ -5,12 +5,12 @@ import lombok.Data;
 
 public class CartItem {
     private Product product;
-    private int quantiy;
+    private int quantity;
 
 
-    public CartItem(Product product, int quantiy) {
+    public CartItem(Product product, int quantity) {
         this.product = product;
-        this.quantiy = quantiy;
+        this.quantity = quantity;
     }
 
     public Product getProduct() {
@@ -21,11 +21,11 @@ public class CartItem {
         this.product = product;
     }
 
-    public int getQuantiy() {
-        return quantiy;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuantiy(int quantiy) {
-        this.quantiy = quantiy;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
