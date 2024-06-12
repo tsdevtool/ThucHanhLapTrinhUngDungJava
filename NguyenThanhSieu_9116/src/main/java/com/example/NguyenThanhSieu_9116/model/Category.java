@@ -3,6 +3,7 @@ package com.example.NguyenThanhSieu_9116.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import java.util.*;
 @Setter
 @Getter
 
@@ -17,4 +18,6 @@ public class Category {
 
     @NotBlank(message="Tên là bắt buộc")
     private String name;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 }

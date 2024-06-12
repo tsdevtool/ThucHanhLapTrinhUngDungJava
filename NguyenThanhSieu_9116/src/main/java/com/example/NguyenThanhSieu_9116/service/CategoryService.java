@@ -1,7 +1,10 @@
 package com.example.NguyenThanhSieu_9116.service;
 
 import com.example.NguyenThanhSieu_9116.model.Category;
+import com.example.NguyenThanhSieu_9116.model.OrderDetail;
+import com.example.NguyenThanhSieu_9116.model.Product;
 import com.example.NguyenThanhSieu_9116.repository.CategoryRepository;
+import com.example.NguyenThanhSieu_9116.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +18,7 @@ import java.util.Optional;
 @Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
-
+    private final ProductRepository productRepository;
     public List<Category> getAllCategories(){
         return categoryRepository.findAll();
     }
@@ -35,8 +38,15 @@ public class CategoryService {
     }
 
     public void deleteCategoryById(Long id){
-        if(!categoryRepository.existsById(id))
-            throw new IllegalStateException("Category with ID " + id + " does not exist.");
+//        if(!categoryRepository.existsById(id))
+//            throw new IllegalStateException("Category with ID " + id + " does not exist.");
+        Category category= categoryRepository.findById(id).orElseThrow(() -> new IllegalStateException("Category with ID " + id + " does not exist."));
+
+        List<Product> products = productRepository.findByCategoryId(id);
+        for(Product product: products){
+            product.setCategory(null);
+            productRepository.save(product);
+        }
         categoryRepository.deleteById(id);
     }
 }
