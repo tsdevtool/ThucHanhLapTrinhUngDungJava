@@ -16,8 +16,20 @@ public class Product {
     private double price;
     private String description;
     private String image;
+    private int quantity;
+
+
 
     @ManyToOne
     @JoinColumn(name = "category id")
     private Category category;
+
+    public void reduceQuantity(int quantity){
+        if(this.quantity >= quantity)
+            this.quantity -= quantity;
+        else
+            throw  new IllegalArgumentException("Not enough stock available");
+    }
 }
+
+

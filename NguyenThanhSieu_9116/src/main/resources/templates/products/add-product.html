@@ -43,6 +43,14 @@
                  th:errors="*{description}"></div>
         </div>
         <div class="mb-3">
+            <label class="form-label">Quantity:</label>
+<!--            <textarea th:field="*{quantity}" class="form-control"-->
+<!--                      id="quantity" required></textarea>-->
+            <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+            <div class="text-danger" th:if="${#fields.hasErrors('quantity')}"
+                 th:errors="*{quantity}"></div>
+        </div>
+        <div class="mb-3">
             <label for="imageFile" class="form-label">Image:</label>
             <input type="file" name="imageFile" class="form-control" id="imageFile">
         </div>

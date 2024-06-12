@@ -24,12 +24,13 @@ public class OrderController {
     }
 
     @PostMapping("/submit")
-    public String submitOrder(String customerName){
+    public String submitOrder(String customerName,String numberPhone, String email, String addressShip, String description, Model model){
         List<CartItem> cartItems = cartService.getCartItems();
         if(cartItems.isEmpty()){
-            return "redirect:/cart";
+            model.addAttribute("message","Your cart is empty");
+            return "redirect:/cart/checkout";
         }
-        orderService.createOrder(customerName,cartItems);
+        orderService.createOrder(customerName, numberPhone, email, addressShip, description,cartItems);
         return "redirect:/order/confirmation";
     }
 

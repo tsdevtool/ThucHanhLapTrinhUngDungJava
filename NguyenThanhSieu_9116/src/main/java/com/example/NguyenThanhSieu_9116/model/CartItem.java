@@ -4,9 +4,14 @@ import lombok.Data;
 
 
 public class CartItem {
+//    private Map<Long, Cart>
+
     private Product product;
     private int quantity;
 
+    public CartItem(){
+
+    }
 
     public CartItem(Product product, int quantity) {
         this.product = product;

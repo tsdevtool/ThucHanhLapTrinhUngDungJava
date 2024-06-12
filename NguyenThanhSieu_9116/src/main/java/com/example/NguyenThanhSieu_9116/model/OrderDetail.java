@@ -24,4 +24,9 @@ public class OrderDetail {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    @PrePersist
+    public void AdjustProductQuantity(){
+        if(product!=null)
+            product.reduceQuantity(quantity);
+    }
 }
