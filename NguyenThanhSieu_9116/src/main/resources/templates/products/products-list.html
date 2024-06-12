@@ -6,52 +6,110 @@
     <title th:text="${title} ?: 'Product'">Product</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .card-container {
+            margin-top: 20px;
+        }
+        .btn-add-product {
+            margin-bottom: 20px;
+        }
+        .product-card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .product-card .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .product-card .card-subtitle {
+            margin-bottom: 15px;
+        }
+        .search-results {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-results li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .search-results li:hover {
+            background: #f0f0f0;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <section layout:fragment="content">
-    <h1>Products List</h1>
-    <div>
-        <a th:href="@{/products/add}" class="btn btn-primary mb-3">Add New
-            Product</a>
-    </div>
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Category Name</th>
-            <th>Actions</th>
-            <th>Add To Cart</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.category.name}"></td>
-            <td>
-                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn
-btn-success btn-sm">Edit</a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn
-btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
-            </td>
-            <td>
-                <form th:action="@{/cart/add}" method="post">
-                    <input type="number" name="quantity" min="1" value="1"
-                           class="form-control d-inline-block" style="width: 70px;">
-                    <input type="hidden" th:value="${product.id}"
-                           name="productId"/>
-                    <button type="submit" class="btn btn-warning btn-sm">Add to
-                        Cart</button>
+    <div class="container">
+        <h1 class="text-center">Danh sách sản phẩm</h1>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <a th:href="@{/products/add}" class="btn btn-primary btn-add-product">Thêm sản phẩm mới</a>
+            </div>
+            <div style="position: relative;">
+                <form class="d-flex">
+                    <input id="search-input" class="form-control me-2" type="search" placeholder="Search Products" name="query" autocomplete="off">
+                    <button class="btn btn-outline-success" type="button">Search</button>
                 </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <ul id="search-results" class="list-group search-results" style="display: none;"></ul>
+            </div>
+        </div>
+        <div class="row card-container">
+            <div class="col-md-4" th:each="product : ${products}">
+                <div class="card product-card">
+                    <img th:src="@{'/images/' + ${product.image}}" alt="Product Image" class="card-img-top" onError="this.onerror=null;this.src='/images/default.jpg';">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" th:text="${product.category.name}">Category Name</h6>
+                        <p class="card-text" th:text="${product.description}">Product Description</p>
+                        <p class="card-text"><strong>Price:</strong> <span th:text="${product.price}">Product Price</span></p>
+                        <div class="d-flex justify-content-between mt-auto">
+                            <div class="btn-group" role="group">
+                                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success btn-sm">Edit</a>
+                                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
+                            <form th:action="@{/cart/add}" method="post">
+                                <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                                <input type="hidden" th:value="${product.id}" name="productId"/>
+                                <button type="submit" class="btn btn-warning btn-sm">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+<script src="/js/style.js"></script>
 </body>
 </html>
