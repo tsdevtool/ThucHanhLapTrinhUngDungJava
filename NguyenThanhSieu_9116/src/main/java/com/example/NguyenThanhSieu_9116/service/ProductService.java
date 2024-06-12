@@ -23,6 +23,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+//    public Optional<Product> findById(Long id){
+//        return productRepository.findById(id);
+//    }
     public Optional<Product> getProductById(Long id){
         return productRepository.findById(id);
     }
@@ -37,6 +40,7 @@ public class ProductService {
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setImage(product.getImage());
+        existingProduct.setQuantity(product.getQuantity());
         existingProduct.setCategory(product.getCategory());
         return productRepository.save(existingProduct);
     }

@@ -81,15 +81,24 @@
     <table class="table cart-table" th:unless="${cartItems.isEmpty()}">
         <thead>
         <tr>
+            <th>Image</th>
             <th>Product Name</th>
             <th>Quantity</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${cartItems}">
+        <tr th:each="item, iterStat : ${cartItems}">
+            <td><img th:src = "@{'/images/' + ${item.product.image}}" style="width: 100px; height=auto;"></td>
             <td th:text="${item.product.name}"></td>
-            <td th:text="${item.quantity}"></td>
+<!--            <td th:text="${item.quantity}"></td>-->
+
+            <td>
+                <input type="number" name="items[__${iterStat.index}__].quantity" th:max="${item.product.quantity}" min="1" th:value="${item.quantity}" class="form-control d-inline-block" style="width: 70px;">
+                <input type="hidden" name="items[__${iterStat.index}__].productId" th:value="${item.product.id}">
+            </td>>
+
+
             <td>
                 <a th:href="@{/cart/remove/{productId}(productId=${item.product.id})}"
                    class="btn btn-danger btn-sm">Remove</a>

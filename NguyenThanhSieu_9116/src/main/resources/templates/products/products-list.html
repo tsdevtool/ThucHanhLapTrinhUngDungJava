@@ -92,6 +92,10 @@
                         <h5 class="card-title" th:text="${product.name}">Product Name</h5>
                         <h6 class="card-subtitle mb-2 text-muted" th:text="${product.category.name}">Category Name</h6>
                         <p class="card-text" th:text="${product.description}">Product Description</p>
+<!--                        <p class="card-text">Inventory number: </p>-->
+                        <p style="font-style: italic; opacity: 0.5;">
+                            Inventory number: <span th:text="${product.quantity}"></span>
+                        </p>
                         <p class="card-text"><strong>Price:</strong> <span th:text="${product.price}">Product Price</span></p>
                         <div class="d-flex justify-content-between mt-auto">
                             <div class="btn-group" role="group">
@@ -99,7 +103,7 @@
                                 <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
                             </div>
                             <form th:action="@{/cart/add}" method="post">
-                                <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                                <input type="number" name="quantity" th:max="${product.quantity}" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
                                 <input type="hidden" th:value="${product.id}" name="productId"/>
                                 <button type="submit" class="btn btn-warning btn-sm">Add to Cart</button>
                             </form>
