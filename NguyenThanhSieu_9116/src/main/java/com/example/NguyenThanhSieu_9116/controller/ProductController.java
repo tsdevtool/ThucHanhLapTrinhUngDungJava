@@ -89,6 +89,7 @@ public class ProductController {
             existingProduct.setPrice(product.getPrice());
             existingProduct.setDescription(product.getDescription());
             existingProduct.setCategory(product.getCategory());
+            existingProduct.setQuantity(product.getQuantity());
 
             productService.updateProduct(existingProduct);
 
